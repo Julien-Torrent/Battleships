@@ -2,6 +2,6 @@
 {
     public class ShipCase : Case
     {
-        public bool IsTouched { get; private set; }
+        public bool IsTouched { get; private set; } = false;
     }
 }
