@@ -30,6 +30,7 @@ namespace Battleships.Classes.Ships
             if (Cases.Where(x => x.IsTouched == false).Count() == 0)
             {
                 IsAlive = false;
+                NotificationCenter.NotificationCenter.Notify(NotificationConstants.Death, this);
             }
         }
     }
