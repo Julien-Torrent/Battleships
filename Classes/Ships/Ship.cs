@@ -1,5 +1,6 @@
 ﻿using Battleships.Classes.Cases;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Battleships.Classes.Ships
 {
@@ -9,11 +10,28 @@ namespace Battleships.Classes.Ships
         public bool IsAlive { get; private set; } = true;
         public string Name { get; private set; }
 
-        public List<ShipCase> Cases = new List<ShipCase>(5);
+        private List<ShipCase> Cases;
 
         public Ship(Ships size)
         {
+            Cases = new List<ShipCase>((int)size);
             Name = size.ToString();
+        }
+
+        public bool IsInside(ShipCase c)
+        {
+            return Cases.Where(a => a.X == c.X && a.Y == c.Y).Count() > 0;
+        }
+
+        public void Hit(ShipCase c)
+        {
+            Cases.Where(a => a.X == c.X && a.Y == c.Y).FirstOrDefault().IsTouched = true;
+
+            if (Cases.Where(x => x.IsTouched == false).Count() == 0)
+            {
+                IsAlive = false;
+            }
         }
     }
 }
+
